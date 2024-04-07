@@ -1,48 +1,47 @@
 import { Schema, model, models } from 'mongoose';
 
 const OrderSchema = new Schema({
-
-    email:{
-        type:String,
-        unique: true,
-    },
-    name:{
-        type:String,
+    email: {
+        type: String,
         required: true,
     },
-    bookingTime:{
+    name: {
+        type: String,
+        required: true,
+    },
+    bookingTime: {
         type: Date,
-    // default: Date.now,
     },
-    passengers:{
-        type:Number,
+    passengers: {
+        type: Number,
         required: true,
     },
-    source:{
-        type:String,
+    source: {
+        type: String,
         required: true,
     },
-    destination:{
-        type:String,
+    destination: {
+        type: String,
         required: true,
     },
-
-
+    paymentVerification: { 
+        type: Date,
+        default: null
+    },
     createdAt: {
-    type: Date,
-    default: Date.now,
+        type: Date,
+        default: Date.now,
     },
     stripeId: {
-    type: String,
-    required: true,
-    unique: true,
+        type: String,
+        default: null,
     },
     totalAmount: {
-    type: Number,
+        type: Number,
     },
+});
 
-})
+// Define the Order model
+const Order = models.Order || model('Order', OrderSchema);
 
-const Order = models.Order || model('Order', OrderSchema)
-
-export default Order
+export default Order;

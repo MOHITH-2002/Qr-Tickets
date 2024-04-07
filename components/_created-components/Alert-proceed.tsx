@@ -14,7 +14,7 @@ import Image from "next/image";
 import { loadStripe } from '@stripe/stripe-js';
 
 import { useEffect } from "react";
-import { checkoutOrder } from "@/lib/actions/payment-checkout";
+import { checkoutOrder, createUser } from "@/lib/actions/payment-checkout";
 
 
 
@@ -84,9 +84,17 @@ const renderAmount = () => {
 
     }
     // console.log(order);
+
+    const user = await createUser(order);
+    console.log(user);
+    console.log();
     
 
-    await checkoutOrder(order);
+    
+
+    await checkoutOrder({price:price*numberofpassenger,userId:user._id});
+    console.log("success in checkout");
+    
     
   }
     return (

@@ -1,10 +1,11 @@
+"use server"
 import Stripe from "stripe"
 import { redirect } from "next/navigation"
 import { connectToDb } from "../database/db";
 import Order from "../database/model/order-schema";
 
 
-interface CheckoutOrderParams {
+interface CreateUserParams {
     passengers:number;
     bookingTime:Date;
     price:number;
@@ -12,43 +13,76 @@ interface CheckoutOrderParams {
     source:string;
     email:string | undefined;
     username:string | undefined;
+
+
+}
+interface CheckoutOrderParams {
+    
+    price:number;
+    userId:string
 
 
 }
 interface createOrderParams {
-    passengers:number;
-    bookingTime:Date;
-    price:number;
-    destination:string;
-    source:string;
-    email:string | undefined;
-    username:string | undefined;
+
     stripeId:string;
+    userId:string;
 
 
 }
-export const checkoutOrder = async (order: CheckoutOrderParams) => {
+
+
+export const createUser = async (order: CreateUserParams) => {
+  try {
+    
+    await connectToDb();
+    
+    
+    const newuser = await Order.create({
+      email:order.email,
+      name:order.username,
+      bookingTime:order.bookingTime,
+      passengers:order.passengers,
+      source:order.source,
+      destination:order.destination,
+      totalAmount:order.price
+
+    })
+    return JSON.parse(JSON.stringify(newuser));
+
+  } catch (error) {
+    console.log("error in creating user");
+    console.log(error);
+    
+    
+    
+  }
+}
+
+export const checkoutOrder = async ({userId,price}:CheckoutOrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const price = Number(order.price) * 100;
+  const amount = Number(price) * 100;
+
 
   try {
+    await connectToDb();
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
           price_data: {
             currency: 'INR',
-            unit_amount: price,
+            unit_amount: amount,
             product_data: {
-            name: order.username!,
-          }
+              name: "Tickets Booking"
+            }
             
           },
           quantity: 1
         },
       ],
       metadata: {
-      buyerEmail: order.email!,
+      userId:userId,
     },
       
       mode: 'payment',
@@ -56,27 +90,29 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
     });
 
-    redirect(session.url!)
+
+    
+    
+    
+
+    redirect(session.url!);
+    
+    
   } catch (error) {
     throw error;
   }
 }
 export const createOrder = async (order: createOrderParams) => {
   try {
-    await connectToDb();
+    console.log(order);
     
-    const newOrder = await Order.create({
-      email:order.email,
-      name: order.username,
-      bookingTime: order.bookingTime,
-      passengers: order.passengers,
-      source:order.source,
-      destination:order.destination,
-      totalAmount:order.price,
+    
+    await connectToDb();
+    const newOrder = await Order.findByIdAndUpdate({
+      paymentVerfication:new Date(),     
       stripeId:order.stripeId,
-
-
     });
+    
 
     return JSON.parse(JSON.stringify(newOrder));
   } catch (error) {
