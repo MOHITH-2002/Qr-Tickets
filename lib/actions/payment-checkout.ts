@@ -6,7 +6,7 @@ import Order from "../database/model/order-schema";
 
 interface CheckoutOrderParams {
     passengers:number;
-    bookingTime:string;
+    bookingTime:Date;
     price:number;
     destination:string;
     source:string;
@@ -17,7 +17,7 @@ interface CheckoutOrderParams {
 }
 interface createOrderParams {
     passengers:number;
-    bookingTime:string;
+    bookingTime:Date;
     price:number;
     destination:string;
     source:string;

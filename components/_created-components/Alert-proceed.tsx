@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button"
 import Image from "next/image";
 import { loadStripe } from '@stripe/stripe-js';
-import moment from "moment";
+
 import { useEffect } from "react";
 import { checkoutOrder } from "@/lib/actions/payment-checkout";
 
@@ -77,7 +77,7 @@ const renderAmount = () => {
       source:selectedItem,
       destination:destSelectedItem,
       price:price*numberofpassenger,
-      bookingTime:moment().format('LTS'),
+      bookingTime:new Date(),
       passengers:numberofpassenger,
       email,username
       
@@ -124,7 +124,7 @@ const renderAmount = () => {
             <div className="h-14 flex justify-between items-center  rounded-md pl-3 pr-3">
               <div className="flex flex-col">
               <span className="font-semibold">Booking time:</span>
-              <span className="text-slate-800">{moment().format('LTS')}</span>
+              <span className="text-slate-800">{new Date().getTime()}</span>
               </div>
               <div className="flex flex-col">
               <span className="font-semibold">Distance:</span>
