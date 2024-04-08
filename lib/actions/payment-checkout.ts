@@ -19,7 +19,8 @@ interface CreateUserParams {
 interface CheckoutOrderParams {
     
     price:number;
-    userId:string
+    userId:string;
+    email:string | undefined;
 
 
 }
@@ -59,15 +60,15 @@ export const createUser = async (order: CreateUserParams) => {
   }
 }
 
-export const checkoutOrder = async ({userId,price}:CheckoutOrderParams) => {
+export const checkoutOrder = async ({userId,price,email}:CheckoutOrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const amount = Number(price) * 100;
 
 
   try {
-    await connectToDb();
     const session = await stripe.checkout.sessions.create({
+      customer_email:email,
       line_items: [
         {
           price_data: {

@@ -1,41 +1,41 @@
-"use server"
-import { createOrder } from "@/lib/actions/payment-checkout";
+import Stripe from "stripe";
+
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import stripe from "stripe";
+import { stripe } from "@/lib/stripe";
 
-export async function POST(request: Request) {
-  const body = await request.text();
 
-  const sig = request.headers.get("stripe-signature") as string;
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+export async function POST(req: Request) {
+  const body = await req.text();
+  const signature = headers().get("Stripe-Signature") as string;
 
-  let event;
+  let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
-  } catch (err) {
-    return NextResponse.json({ message: "Webhook error", error: err });
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!,
+    );
+  } catch(error: any) {
+    return new NextResponse(`Webhook error: ${error.message}`, {
+      status: 400,
+    });
   }
 
-  // Get the ID and type
-  const eventType = event.type;
+  const session = event.data.object as Stripe.Checkout.Session;
 
-  // CREATE
-  if (eventType === "checkout.session.completed") {
-    const { id, amount_total, metadata } = event.data.object;
+  if (event.type === "checkout.session.completed") {
+    
+    if (!session?.metadata?.userId) {
+      return new NextResponse("User ID is required", { status: 400 });
+    }
 
-    const order = {
-        stripeId: id,
-      
-        userId: metadata?.userId || "",
+    console.log(session);
     
-    };
-    console.log(order);
-    
-    const newTransaction = await createOrder(order);
-    
-    return NextResponse.json({ message: "OK", transaction: newTransaction });
   }
 
-  return new Response("", { status: 200 });
-}
+  
+
+  return new NextResponse(null, { status: 200 });
+};

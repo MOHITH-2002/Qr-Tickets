@@ -87,12 +87,12 @@ const renderAmount = () => {
 
     const user = await createUser(order);
     console.log(user);
-    console.log();
+    
     
 
     
 
-    await checkoutOrder({price:price*numberofpassenger,userId:user._id});
+    await checkoutOrder({price:price*numberofpassenger,userId:user._id,email:email});
     console.log("success in checkout");
     
     
