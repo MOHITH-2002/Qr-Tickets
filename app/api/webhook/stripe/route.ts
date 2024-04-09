@@ -25,10 +25,17 @@ export async function POST(request: Request) {
   if (eventType === 'checkout.session.completed') {
     const { id, amount_total, metadata } = event.data.object
 
+    const order = {
+      stripeId: id,
+      userId: metadata?.userId || '',
+
+      totalAmount: amount_total ? (amount_total / 100).toString() : '0',
+      createdAt: new Date(),
+    }
+    console.log(order);
     
-    
-    const name = "random"
-    const newOrder = await createStripe(name);
+  
+    const newOrder = await createStripe();
     return NextResponse.json({ message: 'OK', order: newOrder })
   }
 

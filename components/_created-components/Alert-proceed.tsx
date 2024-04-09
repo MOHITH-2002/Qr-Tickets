@@ -30,11 +30,11 @@ interface alertProps {
     username:string | undefined;
 
 }
+loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 export   function Alertproceed({numberofpassenger,destDistance,srcDistance,price,selectedItem,destSelectedItem,email,username}:alertProps) {
 
-  useEffect(() => {
-    loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-  }, []);
+
+
     
 
 const renderPassengerDetails = () => {
@@ -58,7 +58,7 @@ const renderAmount = () => {
 
 
   // buy tickets
-    useEffect(() => {
+      useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
     if (query.get('success')) {

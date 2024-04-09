@@ -3,11 +3,12 @@
 import { connectToDb } from "../database/db";
 import Stripe from "../database/model/stripe-mode";
 
-export const createStripe = async(name:string)=>{
+export const createStripe = async()=>{
+    
     try {
         await connectToDb();
 
-        const newstripe = await Stripe.create(name);
+        const newstripe = await Stripe.create({name:"asfdadgasgfshfhafhhfhahe"});
         console.log("success in stripe create");
         
         
