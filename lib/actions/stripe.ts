@@ -6,7 +6,7 @@ import Stripe from "../database/model/stripe-mode";
 
 interface orderprops {
     userId?:string;
-    stripId?:string;
+    stripeId:string;
     totalAmount?:string | number;
 
 }
