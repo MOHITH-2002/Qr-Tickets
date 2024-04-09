@@ -27,7 +27,7 @@ interface CheckoutOrderParams {
 interface createOrderParams {
 
   stripeId:string;
-    userId?:string;
+    userId:string;
     totalAmount?:string | number;
     
 
@@ -110,7 +110,7 @@ export const createOrder = async (order: createOrderParams) => {
     
     
     await connectToDb();
-    const newOrder = await Order.findByIdAndUpdate({
+    const newOrder = await Order.findByIdAndUpdate(order.userId,{
       paymentVerification:new Date(),     
       stripeId:order.stripeId,
     });
