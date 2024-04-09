@@ -92,7 +92,7 @@ const renderAmount = () => {
 
     
 
-    await checkoutOrder({price:price*numberofpassenger,userId:user._id,email:email});
+    await checkoutOrder({price:price*numberofpassenger,userId:user._id,email:email,passengers:numberofpassenger});
     console.log("success in checkout");
     
     

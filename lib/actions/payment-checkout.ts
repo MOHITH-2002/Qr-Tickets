@@ -3,7 +3,8 @@ import Stripe from "stripe"
 import { redirect } from "next/navigation"
 import { connectToDb } from "../database/db";
 import Order from "../database/model/order-schema";
-
+import QRCode from 'qrcode'
+import QrCodeDetail from "../database/model/qr-model";
 
 interface CreateUserParams {
     passengers:number;
@@ -21,14 +22,16 @@ interface CheckoutOrderParams {
     price:number;
     userId:string;
     email:string | undefined;
+    passengers:number;
 
 
 }
 interface createOrderParams {
 
-  stripeId:string;
+    stripeId:string;
     userId:string;
     totalAmount?:string | number;
+    passengers:any,
     
 
 
@@ -51,6 +54,9 @@ export const createUser = async (order: CreateUserParams) => {
       totalAmount:order.price
 
     })
+
+    
+
     return JSON.parse(JSON.stringify(newuser));
 
   } catch (error) {
@@ -62,7 +68,7 @@ export const createUser = async (order: CreateUserParams) => {
   }
 }
 
-export const checkoutOrder = async ({userId,price,email}:CheckoutOrderParams) => {
+export const checkoutOrder = async ({userId,price,email,passengers}:CheckoutOrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const amount = Number(price) * 100;
@@ -77,7 +83,7 @@ export const checkoutOrder = async ({userId,price,email}:CheckoutOrderParams) =>
             currency: 'INR',
             unit_amount: amount,
             product_data: {
-              name: "Tickets Booking"
+			name: "Tickets Booking"
             }
             
           },
@@ -86,11 +92,13 @@ export const checkoutOrder = async ({userId,price,email}:CheckoutOrderParams) =>
       ],
       metadata: {
       userId:userId,
+	  passengers:passengers,
+
     },
-      
-      mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/profile`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
+	
+    mode: 'payment',
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/profile`,
+    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
     });
 
 
@@ -114,6 +122,20 @@ export const createOrder = async (order: createOrderParams) => {
       paymentVerification:new Date(),     
       stripeId:order.stripeId,
     });
+	if(newOrder){
+
+		const qrcode = await QRCode.toDataURL(order.userId)
+		
+		await QrCodeDetail.create({
+			userId:order.userId,
+			qrimage:qrcode,
+			passengers:order.passengers,
+			count:order.passengers*2,
+
+
+		})
+		
+	}
     
     console.log("success from update payment verification");
     

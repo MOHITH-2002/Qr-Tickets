@@ -8,6 +8,7 @@ interface orderprops {
     userId?:string;
     stripeId:string;
     totalAmount?:string | number;
+    passengers?:number | string;
 
 }
 export const createStripeorder = async(order:orderprops)=>{

@@ -84,6 +84,7 @@ const Search = ({username,email}:searchprop) => {
                 </Select>
             </div>
             
+            
             {/* Display the selected fruit in the button */}
             {numberofpassenger!= 0 && destSelectedItem!=""&&  selectedItem!== ""  ? 
             <div>

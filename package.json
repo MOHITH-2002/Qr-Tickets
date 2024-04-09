@@ -25,6 +25,7 @@
     "mongoose": "^8.2.4",
     "next": "^14.1.4",
     "next-auth": "^5.0.0-beta.4",
+    "qrcode": "^1.5.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.49.2",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/uuid": "^9.0.8",
