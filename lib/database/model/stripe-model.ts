@@ -1,20 +1,22 @@
 import { Schema, model, models } from 'mongoose';
 
-const QrSchema = new Schema({
+const StripeSchema = new Schema({
     userId: {
         type: String,
         required: true,
     },
-    qrimage:{
-        type:String,
+    stripeId: {
+        type: String,
         required: true,
+    },
+    totalAmount: {
+        type: Number || String,
+        
     },
     passengers:{
         type: Number || String,
     },
-    count:{
-        type: Number || String,
-    },
+    
     createdAt: {
         type: Date,
         default: Date.now,
@@ -22,6 +24,6 @@ const QrSchema = new Schema({
 });
 
 // Define the Order model
-const QrCodeDetail = models.QrCodeDetail || model('QrCodeDetail', QrSchema);
+const Stripe = models.Stripe || model('Stripe', StripeSchema);
 
-export default QrCodeDetail;
+export default Stripe;

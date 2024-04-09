@@ -36,6 +36,11 @@ const OrderSchema = new Schema({
         type: String,
         default: null,
     },
+    qrImage:{
+
+        type:String,
+        default:null,
+    },
     totalAmount: {
         type: Number,
     },

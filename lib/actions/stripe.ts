@@ -1,7 +1,7 @@
 "use server";
 
 import { connectToDb } from "../database/db";
-import Stripe from "../database/model/stripe-mode";
+import Stripe from "../database/model/stripe-model";
 
 
 interface orderprops {

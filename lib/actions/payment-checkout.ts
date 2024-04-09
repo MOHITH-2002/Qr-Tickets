@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { connectToDb } from "../database/db";
 import Order from "../database/model/order-schema";
 import QRCode from 'qrcode'
-import QrCodeDetail from "../database/model/qr-model";
+
 
 interface CreateUserParams {
     passengers:number;
@@ -31,7 +31,8 @@ interface createOrderParams {
     stripeId:string;
     userId:string;
     totalAmount?:string | number;
-    passengers:any,
+    passengers:any;
+	
     
 
 
@@ -118,24 +119,18 @@ export const createOrder = async (order: createOrderParams) => {
     
     
     await connectToDb();
+	const qrcode = await QRCode.toDataURL(order.userId);
     const newOrder = await Order.findByIdAndUpdate(order.userId,{
       paymentVerification:new Date(),     
       stripeId:order.stripeId,
+	  qrImage:qrcode,
     });
-	if(newOrder){
+	
 
-		const qrcode = await QRCode.toDataURL(order.userId)
 		
-		await QrCodeDetail.create({
-			userId:order.userId,
-			qrimage:qrcode,
-			passengers:order.passengers,
-			count:order.passengers*2,
-
-
-		})
 		
-	}
+		
+	
     
     console.log("success from update payment verification");
     
