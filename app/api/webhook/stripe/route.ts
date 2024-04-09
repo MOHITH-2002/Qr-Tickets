@@ -1,6 +1,6 @@
 import stripe from 'stripe'
 import { NextResponse } from 'next/server'
-import { createStripe } from '@/lib/actions/stripe'
+import { createStripeorder } from '@/lib/actions/stripe'
 
 
 
@@ -30,12 +30,12 @@ export async function POST(request: Request) {
       userId: metadata?.userId || '',
 
       totalAmount: amount_total ? (amount_total / 100).toString() : '0',
-      createdAt: new Date(),
+      
     }
-    console.log(order);
+    
     
   
-    const newOrder = await createStripe();
+    const newOrder = await createStripeorder(order);
     return NextResponse.json({ message: 'OK', order: newOrder })
   }
 

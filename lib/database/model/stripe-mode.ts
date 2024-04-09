@@ -1,11 +1,22 @@
 import { Schema, model, models } from 'mongoose';
 
 const StripeSchema = new Schema({
-    name: {
+    userId: {
         type: String,
         required: true,
     },
-    
+    stripeId: {
+        type: String,
+        required: true,
+    },
+    totalAmount: {
+        type: Number || String,
+        
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 // Define the Order model

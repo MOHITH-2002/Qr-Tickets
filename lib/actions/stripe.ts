@@ -3,12 +3,19 @@
 import { connectToDb } from "../database/db";
 import Stripe from "../database/model/stripe-mode";
 
-export const createStripe = async()=>{
+
+interface orderprops {
+    userId?:string;
+    stripId?:string;
+    totalAmount?:string | number;
+
+}
+export const createStripeorder = async(order:orderprops)=>{
     
     try {
         await connectToDb();
 
-        const newstripe = await Stripe.create({name:"asfdadgasgfshfhafhhfhahe"});
+        const newstripe = await Stripe.create(order);
         console.log("success in stripe create");
         
         
