@@ -15,6 +15,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import { useEffect } from "react";
 import { checkoutOrder, createUser } from "@/lib/actions/payment-checkout";
+import moment from "moment";
 
 
 
@@ -86,7 +87,7 @@ const renderAmount = () => {
     // console.log(order);
 
     const user = await createUser(order);
-    console.log(user);
+    
     
     
 
@@ -102,12 +103,12 @@ const renderAmount = () => {
         <AlertDialogTrigger asChild>
         <Button variant="outline">Buy Ticket</Button>
         </AlertDialogTrigger>
-        <AlertDialogContent className=" max-w-[390px] rounded-md sm:max-w-[680px] bg-slate-200">
+        <AlertDialogContent className="max-w-[400px] rounded-md sm:max-w-[680px] bg-slate-200">
         <AlertDialogHeader >
           <div >
             <h1 className="font-bold text-2xl ">
 
-            Confirm Details
+            Confirmation
             </h1>
             </div>
             <div className="bg-blue-100 border-2 border-blue-600  w-full  flex flex-col gap-2  rounded-md">
@@ -115,7 +116,7 @@ const renderAmount = () => {
             
 
             <div className="">
-                <h1 className="font-bold text-lg">{selectedItem}</h1>
+                <h1 className="font-bold text-lg truncate">{selectedItem}</h1>
             </div>
               
             
@@ -126,17 +127,17 @@ const renderAmount = () => {
             </div>
             <Image src="/pointer.svg" alt="pointer" width="100" height="1" className="hidden md:block"/>
             <div>
-                <h1 className="font-bold flex text-lg overflow-hidden">{destSelectedItem}</h1>
+                <h1 className="font-bold flex text-lg overflow-hidden truncate">{destSelectedItem}</h1>
             </div>
             </div>
             <div className="h-14 flex justify-between items-center  rounded-md pl-3 pr-3">
-              <div className="flex flex-col">
+              <div className="flex flex-col ">
               <span className="font-semibold">Booking time:</span>
-              <span className="text-slate-800">{new Date().getTime()}</span>
+              <span className="text-slate-800 text-left">{moment().format('LT')}</span>
               </div>
               <div className="flex flex-col">
               <span className="font-semibold">Distance:</span>
-              <span className="text-slate-800">{Math.abs(destDistance-srcDistance)} Km</span>
+              <span className="text-slate-800 text-left">{Math.abs(destDistance-srcDistance)} Km</span>
               </div>
             </div>
             
@@ -156,12 +157,14 @@ const renderAmount = () => {
             </div>
             <div className="h-full flex justify-between items-center bg-blue-100 rounded-md pl-2 pr-2">
               <div className="flex flex-col">
-              <span className="font-semibold">Traveler Details:</span>
+              <span className="font-semibold">Passengers Details:</span>
               {renderPassengerDetails()}
               </div>
               <div className="flex flex-col">
-              <span className="font-semibold">Amount:</span>
-              {renderAmount()}
+              <span className="font-semibold ">Amount:</span>
+              <span className="text-left flex-col  flex">
+                {renderAmount()}
+                </span>
               </div>
             </div>
             
@@ -170,8 +173,8 @@ const renderAmount = () => {
             </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="bg-red-500 hover:bg-red-400" >Cancel</AlertDialogCancel>
-          <AlertDialogAction className="bg-blue-700 hover:bg-blue-500" onClick={onCheckout} >Proceed </AlertDialogAction>
+          <AlertDialogCancel className="" >Cancel</AlertDialogCancel>
+          <AlertDialogAction className="" onClick={onCheckout} >Check out </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
