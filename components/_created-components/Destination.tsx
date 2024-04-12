@@ -1,8 +1,10 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { data } from '@/lib/data/data';
+import { Search } from 'lucide-react';
+import Image from 'next/image';
 
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 }
 
 const Destination = ({ removeSelected, destinationSelected }: Props) => {
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState("");
     const [selectedItem, setSelectedItem] = useState<any>(null);
@@ -26,16 +29,31 @@ const Destination = ({ removeSelected, destinationSelected }: Props) => {
         setIsOpen(false); // Close the dropdown
     }
 
-    
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     const filteredData = data.filter((item) => item.place.includes(value) && item.place !== removeSelected);
-    const dropdownHeight = Math.min(filteredData.length * 40, 200);
+    const dropdownHeight = Math.min(filteredData.length * 40, 220);
 
     return (
-        <div>
-            <Input type="text" placeholder="Search" onClick={handleClick} onChange={(e) => setValue(e.target.value)} value={value} className='focus-visible:ring-transparent w-[13.5rem] '/>
+        <div className="">
+            <div className="flex  items-center relative" onClick={handleClick}>
+                <Image src="/getoff.png" alt="getoff" width="22" height="20" className="absolute flex left-2 text-muted-foreground "  />
+            <Input type="text" placeholder="To"  onChange={(e) => setValue(e.target.value)} value={value} className='pl-10  focus:none  focus-visible:ring-transparent lg:w-[13.5rem] md:w-[12rem]  h-12 md:h-16'/>
+            </div>
             {isOpen &&
-                <div style={{maxHeight: `${dropdownHeight}px` }} className="flex flex-col w-[13.5rem] absolute z-[99999] overflow-y-auto bg-slate-600 mt-1 rounded-sm" >
+                <div style={{maxHeight: `${dropdownHeight}px` }} className="flex flex-col lg:w-[13.5rem] md:w-[12rem]  absolute z-[99999] overflow-y-auto bg-white mt-1 rounded-sm" ref={dropdownRef} >
                     {filteredData.map((item) => (
                         <Button
                             key={item.id}

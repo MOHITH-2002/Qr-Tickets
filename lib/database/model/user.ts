@@ -14,7 +14,10 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
     },
-    image:{type:String},
+    image:{
+        type:String,
+        default:null,
+    },
     emailVerified: {
         type:Date,
         default:null

@@ -6,6 +6,7 @@ import { connectToDb } from "../database/db";
 import User from "../database/model/user";
 import { generateVerificationToken } from "../token";
 import { sendVerificationEmail } from "../Email/mail";
+import { auth } from "@/auth";
 
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
@@ -35,3 +36,19 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     
   }
 };
+
+export const userInfo = async ()=>{
+  const session = await auth();
+  
+  try {
+    await connectToDb();
+    const user = await User.findOne({ email:session?.user.email}).select('-password');
+    return JSON.parse(JSON.stringify(user));
+    
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
+  
+}

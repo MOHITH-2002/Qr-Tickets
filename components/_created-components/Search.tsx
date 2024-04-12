@@ -5,6 +5,8 @@ import Destination from './Destination';
 import { Button } from '../ui/button';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Alertproceed } from './Alert-proceed';
+import { handleClientScriptLoad } from 'next/script';
+import toast from 'react-hot-toast';
 
 interface searchprop {
     username: string | undefined;
@@ -19,6 +21,7 @@ const Search = ({username,email}:searchprop) => {
     const [srcDistance, setSrcDistance] = useState<number>(0);
     const [destDistance, setDestDistance] = useState<number>(0);
     const [numberofpassenger,setNumberOfPassenger] = useState<number>(0);
+
 
     const handleSourceSelected = (item:any) => {
         setSelectedItem(item.place);
@@ -59,17 +62,20 @@ const Search = ({username,email}:searchprop) => {
   };
 
 
+  
 
     return (
-        <div>
-            <div className="">
+        <div className="flex  justify-center items-center h-[calc(100vh-4rem)] pb-[64px] bg-emerald-600">
+            <div className="flex flex-col md:flex-row p-5  md:p-10 lg:p-20 rounded-3xl bg-slate-100">
+
+            <div className="flex flex-col md:flex-row">
                 
-                <Source sourceselected={handleSourceSelected} removeSelected={destSelectedItem} />
+                <Source  sourceselected={handleSourceSelected} removeSelected={destSelectedItem} />
                 <Destination removeSelected={selectedItem} destinationSelected={handleDestinationSelected} />
             </div>
-            <div>
-                <Select onValueChange={handleFieldValue} >
-                    <SelectTrigger className="w-[13.5rem] focus-visible:ring-transparent focus:none">
+            <div className="flex flex-col md:flex-row">
+                <Select onValueChange={handleFieldValue}>
+                    <SelectTrigger className="lg:w-[13.5rem] md:w-[11rem] focus-visible:ring-transparent focus:none h-12 md:h-16">
                         <SelectValue placeholder="No. of passengers" />
                     </SelectTrigger>
                     <SelectContent>
@@ -91,8 +97,10 @@ const Search = ({username,email}:searchprop) => {
 
                 <Alertproceed numberofpassenger={numberofpassenger} destDistance={destDistance} srcDistance={srcDistance} price={price} destSelectedItem={destSelectedItem} selectedItem={selectedItem} email={email} username={username}/> 
             </div>
-                : <Button disabled className="cursor-Pointer bg-gray-700" variant="outline">Buy Ticket</Button>}
+                : <Button className="md:h-16 rounded-none md:rounded-none h-12 rounded-b-2xl md:rounded-r-3xl" onClick={()=>toast.error("Please make sure to complete all of the fields.")}>Buy Tickets</Button>}
+        
         </div>
+                </div>
     );
 };
 

@@ -29,3 +29,15 @@ export const RegisterSchema = z.object({
     message: "Name is required",
   }),
 });
+
+export const BuyTicketSchema = z.object({
+  From: z.string().min(1,{
+    message: "Please Select From City",
+  }),
+  To: z.string().min(1, {
+    message: "Please Select Destination City",
+  }),
+  passengers: z.string().min(1, {
+    message: "Please Select Number of Passengers ",
+  }),
+});

@@ -98,7 +98,7 @@ export const checkoutOrder = async ({userId,price,email,passengers}:CheckoutOrde
     },
 	
     mode: 'payment',
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/profile`,
+    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/my-tickets`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
     });
 

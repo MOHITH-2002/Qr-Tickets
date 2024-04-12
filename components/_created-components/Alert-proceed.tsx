@@ -101,7 +101,8 @@ const renderAmount = () => {
     return (
     <AlertDialog >
         <AlertDialogTrigger asChild>
-        <Button variant="outline">Buy Ticket</Button>
+        <Button className="md:h-16 h-12 w-full rounded-none rounded-b-2xl 
+         md:rounded-none md:rounded-r-3xl ">Buy Tickets</Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="max-w-[400px] rounded-md sm:max-w-[680px] bg-slate-200">
         <AlertDialogHeader >

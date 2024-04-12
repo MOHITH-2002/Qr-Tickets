@@ -12,3 +12,11 @@ export default interface Ticket {
     qrImage?: string | null;
     totalAmount?: number;
 }
+export default interface User {
+    email: string;
+    name: string;
+    createdAt?: Date;
+    image?:string;
+    emailVerified?: any;
+
+}

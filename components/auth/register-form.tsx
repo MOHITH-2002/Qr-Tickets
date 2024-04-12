@@ -120,9 +120,9 @@ export const RegisterForm = () => {
                       />
                       {
                         passwordOpen && passwordOpen === "text" ? 
-                        (<FaEyeSlash size={20} className="absolute flex right-2 text-muted-foreground cursor-pointer" onClick={()=>setPasswordOpen("password")}/>)
+                        (<FaEye size={20} className="absolute flex right-2 text-muted-foreground cursor-pointer" onClick={()=>setPasswordOpen("password")}/>)
                         :
-                        (<FaEye size={20} className="absolute flex right-2 text-muted-foreground cursor-pointer" onClick={()=>setPasswordOpen("text")}/>)
+                        (<FaEyeSlash size={20} className="absolute flex right-2 text-muted-foreground cursor-pointer" onClick={()=>setPasswordOpen("text")}/>)
                       }
                         </div>
                   </FormControl>
