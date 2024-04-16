@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 export const metadata = {
   title: "Qr-Tickets | newPassword",
+  description: "Smart QR-based ticket booking system for inter-city commutes",
 
 };
 const NewPasswordPage = () => {

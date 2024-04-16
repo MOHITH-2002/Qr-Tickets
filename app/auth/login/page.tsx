@@ -3,6 +3,7 @@ import Loader from "@/components/loading";
 import { Suspense } from "react";
 export const metadata = {
   title: "Qr-Tickets | Login",
+  description: "Smart QR-based ticket booking system for inter-city commutes",
 
 };
 
