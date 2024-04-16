@@ -1,10 +1,8 @@
 "use client";
-
 import * as z from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -21,8 +19,6 @@ import { FormSuccess } from "@/components/form-success";
 import { RegisterSchema } from "@/lib/zodSchema";
 import { register } from "@/lib/actions/register";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
-
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -41,7 +37,7 @@ export const RegisterForm = () => {
     setisPending(true);
     setError("");
     setSuccess("");
-    console.log(values);
+
     
     const res = await register(values);
     if(res?.success){
@@ -96,7 +92,7 @@ export const RegisterForm = () => {
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe@example.com"
+                      placeholder="john@gmail.com"
                       className="rounded-md"
                       type="email"
                     />

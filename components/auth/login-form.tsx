@@ -82,7 +82,7 @@ const searchParams = useSearchParams();
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe@example.com"
+                      placeholder="john@gmail.com"
                       type="email"
                       className="rounded-md"
                     />
