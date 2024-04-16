@@ -84,6 +84,7 @@ const searchParams = useSearchParams();
                       disabled={isPending}
                       placeholder="john.doe@example.com"
                       type="email"
+                      className="rounded-md"
                     />
                   </FormControl>
                   <FormMessage />
@@ -104,6 +105,7 @@ const searchParams = useSearchParams();
                       disabled={isPending}
                       placeholder="******"
                       type={passwordOpen}
+                      className="rounded-md"
                       />
                       {
                         passwordOpen && passwordOpen === "text" ? 

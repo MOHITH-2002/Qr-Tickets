@@ -79,6 +79,7 @@ export const RegisterForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="John Doe"
+                      className="rounded-md"
                     />
                   </FormControl>
                   <FormMessage />
@@ -96,6 +97,7 @@ export const RegisterForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="john.doe@example.com"
+                      className="rounded-md"
                       type="email"
                     />
                   </FormControl>
@@ -116,6 +118,7 @@ export const RegisterForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="******"
+                      className="rounded-md"
                       type={passwordOpen}
                       />
                       {
