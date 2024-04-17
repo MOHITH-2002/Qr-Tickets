@@ -1,251 +1,139 @@
 export const data = [{
   "id": 1,
-  "place": "Pantubig",
-  "price": "$9.81",
-  "distance": 91
+  "place": "	Dharwad BRTS Terminal",
+
+  "distance": 0
 }, {
   "id": 2,
-  "place": "Bajo Pichanaqui",
-  "price": "$8.64",
-  "distance": 83
-}, {
-  "id": 3,
-  "place": "Qiaotou",
-  "price": "$5.01",
-  "distance": 96
-}, {
-  "id": 4,
-  "place": "Petung",
-  "price": "$7.27",
-  "distance": 55
-}, {
-  "id": 5,
-  "place": "Isoka",
-  "price": "$7.86",
-  "distance": 86
-}, {
-  "id": 6,
-  "place": "Gävle",
-  "price": "$5.71",
-  "distance": 36
-}, {
-  "id": 7,
-  "place": "Chalon-sur-Saône",
-  "price": "$2.10",
-  "distance": 71
-}, {
-  "id": 8,
-  "place": "Nadezhda",
-  "price": "$8.63",
-  "distance": 21
-}, {
-  "id": 9,
-  "place": "Kungälv",
-  "price": "$3.46",
-  "distance": 20
-}, {
-  "id": 10,
-  "place": "Laxou",
-  "price": "$4.65",
+  "place": "Jubilee Circle",
+  
   "distance": 1
 }, {
-  "id": 11,
-  "place": "Curahpacul Satu",
-  "price": "$4.19",
-  "distance": 35
+  "id": 3,
+  "place": "Court Circle",
+  "distance": 2
 }, {
-  "id": 12,
-  "place": "Butare",
-  "price": "$6.91",
-  "distance": 71
-}, {
-  "id": 13,
-  "place": "Anggana",
-  "price": "$8.41",
+  "id": 4,
+  "place": "NTTF",
   "distance": 3
 }, {
+  "id": 5,
+  "place": "Hosa Yellapur Cross",
+  "distance": 4
+}, {
+  "id": 6,
+  "place": "Toll Naka",
+  "distance": 5
+}, {
+  "id": 7,
+  "place": "Vidyagiri",
+  "distance": 6
+}, {
+  "id": 8,
+  "place": "Gandhinagar",
+  "distance": 7
+}, {
+  "id": 9,
+  "place": "Lakmanahalli",
+  "distance": 8
+}, {
+  "id": 10,
+  "place": "Sattur",
+  "distance": 9
+}, {
+  "id": 11,
+  "place": "SDM Medical College",
+  "distance":10
+}, {
+  "id": 12,
+  "place": "Navluru Railway Station",
+  "distance": 11
+}, {
+  "id": 13,
+  "place": "KMF",
+  "distance": 12
+}, {
   "id": 14,
-  "place": "Gevgelija",
-  "price": "$5.13",
-  "distance": 58
+  "place": "Rayapur",
+  "distance": 13
 }, {
   "id": 15,
   "place": "Ryazanskiy",
-  "price": "$5.90",
-  "distance": 93
+  "distance": 14
 }, {
   "id": 16,
-  "place": "Zwettl",
-  "price": "$6.77",
-  "distance": 91
+  "place": "ISKCON Temple",
+  "distance": 15
 }, {
   "id": 17,
-  "place": "Ekasapta",
-  "price": "$3.14",
-  "distance": 6
+  "place": "RTO",
+  "distance": 16
 }, {
   "id": 18,
-  "place": "Cabra Figa",
-  "price": "$1.64",
-  "distance": 92
-}, {
-  "id": 19,
-  "place": "Tver",
-  "price": "$2.49",
-  "distance": 59
-}, {
-  "id": 20,
-  "place": "Solina",
-  "price": "$5.43",
-  "distance": 20
-}, {
-  "id": 21,
-  "place": "Ar Rubū‘",
-  "price": "$4.77",
+  "place": "Navanagara",
   "distance": 17
 }, {
-  "id": 22,
-  "place": "Saint-Étienne-du-Rouvray",
-  "price": "$4.96",
-  "distance": 81
+  "id": 19,
+  "place": "APMC 3rd Gate",
+  "distance": 18
 }, {
-  "id": 23,
-  "place": "Salaspils",
-  "price": "$0.95",
-  "distance": 7
-}, {
-  "id": 24,
-  "place": "Chlói",
-  "price": "$2.27",
-  "distance": 93
-}, {
-  "id": 25,
-  "place": "Krajan Nglinggis",
-  "price": "$9.00",
-  "distance": 78
-}, {
-  "id": 26,
-  "place": "P’rimorsk’oe",
-  "price": "$7.49",
-  "distance": 30
-}, {
-  "id": 27,
-  "place": "Hoopstad",
-  "price": "$6.78",
-  "distance": 93
-}, {
-  "id": 28,
-  "place": "Longsha",
-  "price": "$9.00",
-  "distance": 48
-}, {
-  "id": 29,
-  "place": "Podkumskiy",
-  "price": "$1.06",
-  "distance": 47
-}, {
-  "id": 30,
-  "place": "Kyustendil",
-  "price": "$2.42",
-  "distance": 29
-}, {
-  "id": 31,
-  "place": "Banpu",
-  "price": "$7.72",
-  "distance": 94
-}, {
-  "id": 32,
-  "place": "Tallahassee",
-  "price": "$9.10",
-  "distance": 94
-}, {
-  "id": 33,
-  "place": "El Tablón",
-  "price": "$7.69",
+  "id": 20,
+  "place": "Shantinikethan",
   "distance": 19
 }, {
-  "id": 34,
-  "place": "Buyunshan",
-  "price": "$0.53",
-  "distance": 61
+  "id": 21,
+  "place": "Biridevarakoppa",
+  "distance": 20
 }, {
-  "id": 35,
-  "place": "Karsin",
-  "price": "$1.76",
-  "distance": 1
+  "id": 22,
+  "place": "Unakal Lake",
+  "distance": 21
 }, {
-  "id": 36,
-  "place": "Cache Creek",
-  "price": "$5.93",
-  "distance": 41
+  "id": 23,
+  "place": "Unakal",
+  "distance": 21.5
 }, {
-  "id": 37,
-  "place": "Mityana",
-  "price": "$0.92",
+  "id": 24,
+  "place": "Unakal Cross",
   "distance": 22
 }, {
-  "id": 38,
-  "place": "Linköping",
-  "price": "$0.18",
-  "distance": 9
+  "id": 25,
+  "place": "BVB",
+  
+  "distance": 23
 }, {
-  "id": 39,
-  "place": "Guanajuato",
-  "price": "$8.26",
-  "distance": 44
+  
+  "id": 26,
+  "place": "Vidyanagar",
+  "distance": 23.5
 }, {
-  "id": 40,
-  "place": "Longchi",
-  "price": "$3.88",
-  "distance": 4
-}, {
-  "id": 41,
-  "place": "General Manuel J. Campos",
-  "price": "$8.67",
-  "distance": 50
-}, {
-  "id": 42,
-  "place": "Longhua",
-  "price": "$7.60",
+  
+  "id": 27,
+  "place": "Hosur Regional Terminal",
   "distance": 24
 }, {
-  "id": 43,
-  "place": "Ya’erya",
-  "price": "$4.78",
-  "distance": 45
+  
+  "id": 28,
+  "place": "Hosur Cross",
+  "distance": 24.5
 }, {
-  "id": 44,
-  "place": "Nanxi",
-  "price": "$7.97",
-  "distance": 6
+  "id": 29,
+  "place": "Hubballi Central Bus Terminal",
+ "distance":25
 }, {
-  "id": 45,
-  "place": "Huxingshan",
-  "price": "$6.35",
-  "distance": 49
+  "id": 30,
+  "place": "HDMC",
+  "distance": 26
 }, {
-  "id": 46,
-  "place": "Empangeni",
-  "price": "$3.85",
-  "distance": 83
+  "id": 31,
+  "place": "DR. B R Ambedkar Circle",
+  "distance": 26.5
 }, {
-  "id": 47,
-  "place": "Zdice",
-  "price": "$1.68",
-  "distance": 79
+  "id": 32,
+  "place": "CBT Hubballi",
+  "distance": 28
 }, {
-  "id": 48,
-  "place": "Langchi",
-  "price": "$0.77",
-  "distance": 100
-}, {
-  "id": 49,
-  "place": "Pasirangin Tiga",
-  "price": "$8.00",
-  "distance": 1
-}, {
-  "id": 50,
-  "place": "Gia Ray",
-  "price": "$9.71",
-  "distance": 89
+  "id": 33,
+  "place": "Hubballi RailwayStation",
+  "distance": 27
 }]

@@ -11,7 +11,7 @@ export const sendVerificationEmail = async (
   const confirmLink = `${domain}/auth/new-verification?token=${token}`;
 
   await resend.emails.send({
-    from: "onboarding@resend.dev",
+    from: "mail@qrtickets.software",
     to: email,
     subject: "Confirm your email",
     html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`
@@ -26,7 +26,7 @@ export const sendPasswordResetEmail = async (
   const resetLink = `${domain}/auth/new-password?token=${token}`
 
   await resend.emails.send({
-    from: "onboarding@resend.dev",
+    from: "mail@qrtickets.software",
     to: email,
     subject: "Reset your password",
     html: `<p>Click <a href="${resetLink}">here</a> to reset password.</p>`
