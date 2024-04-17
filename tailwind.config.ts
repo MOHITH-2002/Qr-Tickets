@@ -18,7 +18,9 @@ const config = {
       },
     },
     extend: {
-      
+      backgroundImage: {
+        'img': "url('https://res.cloudinary.com/dpgxmmowq/image/upload/v1713349865/bgimg_l1tafz.webp')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
