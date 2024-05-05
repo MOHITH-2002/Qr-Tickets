@@ -52,7 +52,8 @@ export const createUser = async (order: CreateUserParams) => {
       passengers:order.passengers,
       source:order.source,
       destination:order.destination,
-      totalAmount:order.price
+      totalAmount:order.price,
+      count:order.passengers*2
 
     })
 

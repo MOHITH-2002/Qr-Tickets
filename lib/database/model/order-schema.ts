@@ -44,6 +44,9 @@ const OrderSchema = new Schema({
     totalAmount: {
         type: Number,
     },
+    count:{
+        type:Number,
+    }
 });
 
 // Define the Order model
