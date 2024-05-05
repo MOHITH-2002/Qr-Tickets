@@ -29,6 +29,6 @@ export const sendPasswordResetEmail = async (
     from: "mail@qrtickets.software",
     to: email,
     subject: "Reset your password",
-    html: `<p>Click <a href="${resetLink}">here</a> to reset password.</p>`
+    html: `<p >Click <a href="${resetLink}">here</a> to reset password.</p>`
   });
 };
