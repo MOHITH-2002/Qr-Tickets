@@ -40,7 +40,7 @@ const Source = ({ sourceselected, removeSelected }: Props) => {
         setIsOpen(false); // Close the dropdown
     }
 
-    const filteredData = data.filter((item) => item.place.includes(value) && item.place !== removeSelected);
+    const filteredData = data.filter((item) => item.place.includes(value.toUpperCase()) && item.place !== removeSelected);
     const dropdownHeight = Math.min(filteredData.length * 40, 220); // Assuming each item takes 40px of height, with max height 200px
 
     return (

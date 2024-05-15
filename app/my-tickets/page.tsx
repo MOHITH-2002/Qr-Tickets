@@ -8,7 +8,7 @@ export const metadata = {
 
 const ProfilePage = () => {
 
-  
+
   return (
     
     <div className=" w-full  pb-10">

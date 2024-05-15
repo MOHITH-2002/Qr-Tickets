@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { data } from '@/lib/data/data';
-import { Search } from 'lucide-react';
+
 import Image from 'next/image';
 
 
@@ -43,7 +43,7 @@ const Destination = ({ removeSelected, destinationSelected }: Props) => {
         };
     }, []);
 
-    const filteredData = data.filter((item) => item.place.includes(value) && item.place !== removeSelected);
+    const filteredData = data.filter((item) => item.place.includes(value.toUpperCase()) && item.place !== removeSelected);
     const dropdownHeight = Math.min(filteredData.length * 40, 220);
 
     return (
