@@ -59,8 +59,8 @@ const Search: React.FC<SearchProps> = ({ username, email }) => {
     };
 
     return (
-        <div className="flex justify-center items-center h-[calc(100vh-4rem)] pb-[64px] bg-img"> 
-            <div className="flex flex-col md:flex-row p-5 md:p-10 lg:p-20 rounded-3xl bg-slate-50 backdrop-blur-md">
+        <div className="flex justify-center items-center h-[calc(100vh-4rem)] pb-[64px] bg-smimg md:bg-mdimg md:hidden:bg-smimg bg-cover bg-center"> 
+            <div className="flex flex-col md:flex-row p-5 md:p-10 lg:p-20 rounded-3xl bg-slate-50/35  backdrop-blur-sm">
                 <div className="flex flex-col md:flex-row">
                     <Source sourceselected={handleSourceSelected} removeSelected={destSelectedItem} />
                     <Destination removeSelected={selectedItem} destinationSelected={handleDestinationSelected} />

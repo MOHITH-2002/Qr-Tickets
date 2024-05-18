@@ -19,7 +19,8 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        'img': "url('https://res.cloudinary.com/dpgxmmowq/image/upload/v1713349865/bgimg_l1tafz.webp')",
+        'mdimg': "url('https://res.cloudinary.com/dangnbbrc/image/upload/v1715768171/qr%20ticketsw/e5cv5evvsjzv5hcgo1dp.png')",
+        'smimg': "url('https://res.cloudinary.com/dangnbbrc/image/upload/v1715768221/qr%20ticketsw/z3tovicttxv0eqgwdv9i.png')",
       },
       colors: {
         border: "hsl(var(--border))",
