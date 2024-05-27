@@ -36,8 +36,8 @@ Make sure you have the following installed on your system:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/qr-ticket-booking-system.git
-    cd qr-ticket-booking-system
+    git clone https://github.com/MOHITH-2002/Qr-Tickets.git .
+    
     ```
 
 2. Install dependencies:
