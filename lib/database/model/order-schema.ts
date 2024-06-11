@@ -20,9 +20,17 @@ const OrderSchema = new Schema({
         type: String,
         required: true,
     },
+    sourceDistance:{
+        type: Number,
+        required:true,
+    },
     destination: {
         type: String,
         required: true,
+    },
+    destDistance:{
+        type: Number,
+        required:true,
     },
     paymentVerification: { 
         type: Date,

@@ -14,6 +14,8 @@ interface CreateUserParams {
     source:string;
     email:string | undefined;
     username:string | undefined;
+    sourceDistance:number;
+    destDistance:number;
 
 
 }
@@ -53,7 +55,9 @@ export const createUser = async (order: CreateUserParams) => {
       source:order.source,
       destination:order.destination,
       totalAmount:order.price,
-      count:order.passengers*2
+      count:order.passengers*2,
+      sourceDistance:order.sourceDistance,
+      destDistance:order.destDistance,
 
     })
 

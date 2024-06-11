@@ -31,6 +31,7 @@ const Search: React.FC<SearchProps> = ({ username, email }) => {
         setDestDistance(item.distance);
     };
 
+
     const calculatePrice = () => {
         const distance = Math.abs(destDistance - srcDistance);
         

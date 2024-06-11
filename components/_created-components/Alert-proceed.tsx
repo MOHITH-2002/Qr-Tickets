@@ -30,6 +30,7 @@ interface alertProps {
     email:string | undefined;
     username:string | undefined;
 
+
 }
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 export   function Alertproceed({numberofpassenger,destDistance,srcDistance,price,selectedItem,destSelectedItem,email,username}:alertProps) {
@@ -80,6 +81,8 @@ const renderAmount = () => {
       price:price*numberofpassenger,
       bookingTime:new Date(),
       passengers:numberofpassenger,
+      destDistance:destDistance,
+      sourceDistance:srcDistance,
       email,username
       
 

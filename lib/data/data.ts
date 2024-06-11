@@ -1,6 +1,6 @@
 export const data = [{
   "id": 1,
-  "place": "	Dharwad BRTS Terminal",
+  "place": "Dharwad BRTS Terminal",
 
   "distance": 0
 }, {
@@ -99,10 +99,8 @@ export const data = [{
 }, {
   "id": 25,
   "place": "BVB",
-  
   "distance": 23
 }, {
-  
   "id": 26,
   "place": "Vidyanagar",
   "distance": 23.5

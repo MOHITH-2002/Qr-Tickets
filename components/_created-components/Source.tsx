@@ -13,6 +13,7 @@ interface Props {
 const Source = ({ sourceselected, removeSelected }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState("");
+
     const [selectedItem, setSelectedItem] = useState<any>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -32,10 +33,13 @@ const Source = ({ sourceselected, removeSelected }: Props) => {
     const handleClick = () => {
         setIsOpen(!isOpen);
     }
+    // below code is source distance
 
     const handleItemClick = (item: any) => {
         setSelectedItem(item);
         setValue(item.place);
+        // console.log(item.place);
+        
         sourceselected(item); // Pass the selected item to the function
         setIsOpen(false); // Close the dropdown
     }
@@ -61,7 +65,7 @@ const Source = ({ sourceselected, removeSelected }: Props) => {
                 <div
                     ref={dropdownRef}
                     style={{ maxHeight: `${dropdownHeight}px` }}
-                    className="flex flex-col lg:w-[13.5rem] md:w-[12rem] absolute z-[99999] overflow-y-auto bg-white mt-1 rounded-sm"
+                    className="flex flex-col w-[12rem]  lg:w-[13.5rem] md:w-[12rem] absolute z-[99999] overflow-y-auto bg-white mt-1 rounded-sm"
                 >
                     {filteredData.map((item) => (
                         <Button

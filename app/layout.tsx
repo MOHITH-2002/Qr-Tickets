@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Qr-Tickets",
-  description: "Smart QR-based ticket booking system for inter-city commutes",
+  description: "QR-based ticket booking system for inter-city commutes",
 };
 
 export default function RootLayout({
