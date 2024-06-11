@@ -1,33 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# QR-based Ticket Booking System
+
+This project is a QR-based ticket booking system built with Next.js 14, MongoDB, Stripe, and NextAuth v5. It provides a secure platform for online ticket booking with integrated payment processing and user authentication. The system includes real-time QR code validation and turnstile (door) access control using a Raspberry PI-4B.
+
+## Features
+
+- **Secure Ticket Booking**: Users can book tickets online securely.
+- **Payment Processing**: Integrated with Stripe for seamless payment transactions.
+- **User Authentication**: Secure authentication and authorization using NextAuth v5.
+- **QR Code Validation**: Real-time validation of QR codes for ticket verification.
+- **Access Control**: Turnstile (door) access control implemented with Raspberry PI-4B.
+
+## Tech Stack
+
+- **Next.js 14**: Frontend framework for building the web application.
+- **MongoDB**: Database for storing user and ticket information.
+- **Stripe**: Payment processing platform.
+- **NextAuth v5**: Authentication library for secure user login and management.
+- **Raspberry PI-4B**: Hardware for turnstile access control.
 
 ## Getting Started
 
-First, run the development server:
+To get started with the project, follow these steps:
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+
+- Node.js
+- npm or yarn
+- MongoDB
+- Raspberry PI-4B (for access control)
+
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/MOHITH-2002/Qr-Tickets.git .
+    
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3. Set up environment variables:
+
+    Create a `.env` file in the root directory and add your environment variables:
+
+    ```env
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-stripe-publishable-key
+    STRIPE_SECRET_KEY=your-stripe-secret-key
+    MONGODB_URI=your-mongodb-uri
+    NEXTAUTH_URL=http://localhost:3000
+    NEXTAUTH_SECRET=your-nextauth-secret
+    ```
+
+### Running the Development Server
+
+Start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
