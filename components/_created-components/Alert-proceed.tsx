@@ -147,18 +147,7 @@ const renderAmount = () => {
             
 
             <div className="bg-blue-100 border-2  w-full  flex flex-col gap-2  rounded-md">
-            <div className=" bg-blue-200 flex justify-between pl-3 pr-3 px-0 h-10 items-center ">
             
-
-            <div className="flex font-bold text-xl">Total Amount</div>
-            <div className="flex font-bold text-xl ">
-              ₹ {price*numberofpassenger}
-            </div>
-              
-            
-            
-            
-            </div>
             <div className="h-full flex justify-between items-center bg-blue-100 rounded-md pl-2 pr-2">
               <div className="flex flex-col">
               <span className="font-semibold">Passengers Details:</span>
@@ -171,7 +160,18 @@ const renderAmount = () => {
                 </span>
               </div>
             </div>
+            <div className=" bg-blue-200 flex justify-between pl-3 pr-3 h-10 items-center">
             
+
+            <div className="flex font-bold text-xl">Total Amount</div>
+            <div className="flex font-bold text-xl ">
+              ₹ {price*numberofpassenger}
+            </div>
+              
+            
+            
+            
+            </div>
          
             </div>
             </div>

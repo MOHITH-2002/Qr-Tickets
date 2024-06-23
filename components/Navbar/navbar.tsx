@@ -52,7 +52,7 @@ const Navbar = async () => {
         </Button>
 
         </Link>
-        <Accountdialog/>
+        <Accountdialog username={session?.user.name}/>
 
         </div>
     

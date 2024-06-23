@@ -8,9 +8,11 @@ import Loader from "@/components/loading";
 export default async function Home() {
   const session = await auth();
 
+  
+
   return (
     <Suspense fallback={<Loader/>}>
-      <Navbar />
+      <Navbar  />
         <Search username={session?.user.name} email={session?.user.email} />
     </Suspense>
   );

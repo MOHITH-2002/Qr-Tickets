@@ -44,8 +44,9 @@ const Source = ({ sourceselected, removeSelected }: Props) => {
         setIsOpen(false); // Close the dropdown
     }
 
-    const filteredData = data.filter((item) => item.place.includes(value.toUpperCase()) && item.place !== removeSelected);
-    const dropdownHeight = Math.min(filteredData.length * 40, 220); // Assuming each item takes 40px of height, with max height 200px
+    const normalizedValue = value.toLowerCase();
+    const filteredData = data.filter((item) => item.place.toLowerCase().includes(normalizedValue) && item.place !== removeSelected);
+    const dropdownHeight = Math.min(filteredData.length * 40, 220);// Assuming each item takes 40px of height, with max height 200px
 
     return (
         <div className="">
@@ -65,7 +66,7 @@ const Source = ({ sourceselected, removeSelected }: Props) => {
                 <div
                     ref={dropdownRef}
                     style={{ maxHeight: `${dropdownHeight}px` }}
-                    className="flex flex-col w-[12rem]  lg:w-[13.5rem] md:w-[12rem] absolute z-[99999] overflow-y-auto bg-white mt-1 rounded-sm"
+                    className="flex flex-col  lg:w-[13.5rem] md:w-[12rem] absolute z-[99999] overflow-y-auto bg-white mt-1 rounded-sm"
                 >
                     {filteredData.map((item) => (
                         <Button
