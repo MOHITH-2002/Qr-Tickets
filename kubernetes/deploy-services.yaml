@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: qr-tickets-container
-          image: mohith9353/qr-tickets:latest   # Note: provide your latest image from docker hub
+          image: mohith9353/qr-ticket:latest   # Note: provide your latest image from docker hub
           ports:
             - containerPort: 3000
           env:

@@ -45,7 +45,7 @@ pipeline {
                 script {
                     // This step should not normally be used in your script. Consult the inline help for details.
                         withDockerRegistry(credentialsId: 'docker-hub-creditentials', toolName: 'docker') {
-                        sh "docker build -t mohith9353/qr-tickets:latest ."
+                        sh "docker build -t mohith9353/qr-ticket:latest ."
                         }
                 }
             }
@@ -65,7 +65,7 @@ pipeline {
                 script {
                     // This step should not normally be used in your script. Consult the inline help for details.
                         withDockerRegistry(credentialsId: 'docker-hub-creditentials', toolName: 'docker') {
-                        sh "docker push mohith9353/qr-tickets:latest"
+                        sh "docker push mohith9353/qr-ticket:latest"
                         }
                 }
             }
@@ -97,7 +97,7 @@ pipeline {
         //         script {
         //             // This step should not normally be used in your script. Consult the inline help for details.
         //                 withDockerRegistry(credentialsId: 'docker-hub-creditentials', toolName: 'docker') {
-        //                 sh "docker run -d -p 3000:3000 mohith9353/auth:latest"
+        //                 sh "docker run -d -p 3000:3000 mohith9353/qr-ticket:latest"
         //                 }
         //         }
         //     }
