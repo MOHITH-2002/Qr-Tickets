@@ -1,0 +1,106 @@
+pipeline {
+    agent any
+    tools{
+        nodejs 'node22'
+    }
+    environment {
+        SCANNER_HOME= tool 'sonar-scanner'
+    }
+    stages{
+    
+        stage('git checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/MOHITH-2002/Qr-Tickets.git'
+            }
+        }
+    
+    
+        stage('installing dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
+    
+        
+        stage('Trivy FileSystem Scan') {
+            steps {
+                sh "trivy fs --format table -o fs-report.html ."
+            }
+        }
+    
+    
+        stage('sonnar-Qube scan') {
+            steps {
+                withSonarQubeEnv('sonar-qube-scanner') {
+
+
+                sh " $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Auth -Dsonar.projectName=Auth"
+                }
+            }
+        }
+    
+    
+        stage('docker Build and tag') {
+            steps {
+                script {
+                    // This step should not normally be used in your script. Consult the inline help for details.
+                        withDockerRegistry(credentialsId: 'docker-hub-creditentials', toolName: 'docker') {
+                        sh "docker build -t mohith9353/qr-tickets:latest ."
+                        }
+                }
+            }
+        }
+    
+
+        stage('Trivy image Scan for docker repo ') {
+            steps {
+
+                sh "trivy image --format table -o fs-report.html mohith9353/qr-tickets:latest"
+            }
+        }
+    
+    
+        stage('docker image push') {
+            steps {
+                script {
+                    // This step should not normally be used in your script. Consult the inline help for details.
+                        withDockerRegistry(credentialsId: 'docker-hub-creditentials', toolName: 'docker') {
+                        sh "docker push mohith9353/qr-tickets:latest"
+                        }
+                }
+            }
+        }
+        stage('deploy to eks ') {
+            steps {
+
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'auth-devops', contextName: '', credentialsId: 'k8-service', namespace: 'auth-devops', serverUrl: 'https://8E7960A2B61274F37CF1D1FED98B76FB.gr7.ap-south-1.eks.amazonaws.com']]) {
+                    sh "kubectl apply -f dss.yml"
+                    sleep 60
+                }
+            }
+        }
+        
+        stage('verifying the deployment') {
+            steps {
+
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'auth-devops', contextName: '', credentialsId: 'k8-service', namespace: 'auth-devops', serverUrl: 'https://8E7960A2B61274F37CF1D1FED98B76FB.gr7.ap-south-1.eks.amazonaws.com']]) {
+                    sh "kubectl get pods -n auth-devops"
+                    sh "kubectl get svc -n auth-devops"
+                }
+            }
+        }
+    
+    
+    
+        // stage('docker run') {
+        //     steps {
+        //         script {
+        //             // This step should not normally be used in your script. Consult the inline help for details.
+        //                 withDockerRegistry(credentialsId: 'docker-hub-creditentials', toolName: 'docker') {
+        //                 sh "docker run -d -p 3000:3000 mohith9353/auth:latest"
+        //                 }
+        //         }
+        //     }
+        // }
+    }
+}

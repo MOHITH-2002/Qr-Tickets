@@ -1,0 +1,124 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: qr-tickets-secrets
+type: Opaque
+data:
+    
+  MONGODB_URL: convert your mongodburl to base64 
+  MONGODB_CONNECTION_STRING: convert your MONGODB_CONNECTION_STRING to base64 
+  AUTH_SECRET: convert your AUTH_SECRET to base64 
+  NEXT_PUBLIC_APP_URL: convert your NEXT_PUBLIC_APP_URL to base64 
+  GOOGLE_CLIENT_ID: convert your GOOGLE_CLIENT_ID to base64 
+  GOOGLE_CLIENT_SECRET: convert your GOOGLE_CLIENT_SECRET to base64 
+  RESEND_API_KEY: convert your RESEND_API_KEY to base64 
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:  convert your NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY to base64 
+  STRIPE_SECRET_KEY: convert your STRIPE_SECRET_KEY to base64 
+  STRIPE_WEBHOOK_SECRET: convert your STRIPE_WEBHOOK_SECRET to base64 
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  nqr-tickets-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qr-tickets
+  template:
+    metadata:
+      labels:
+        app: qr-tickets
+    spec:
+      containers:
+        - name: qr-tickets-container
+          image: mohith9353/qr-tickets:latest   # Note: provide your latest image from docker hub
+          ports:
+            - containerPort: 3000
+          env:
+            - name: AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: AUTH_SECRET
+
+            - name: NEXT_PUBLIC_APP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: NEXT_PUBLIC_APP_URL
+
+            - name: GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: GOOGLE_CLIENT_ID
+
+            - name: GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: GOOGLE_CLIENT_SECRET
+
+            - name: RESEND_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: RESEND_API_KEY
+
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: MONGODB_CONNECTION_STRING
+
+            - name: MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: MONGODB_URL
+
+            - name: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+
+            - name: STRIPE_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: STRIPE_WEBHOOK_SECRET
+
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: qr-tickets-secrets
+                  key: STRIPE_SECRET_KEY
+            
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30   # Adjust the initial delay here
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30   # Adjust the initial delay here
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qr-tickets-service
+spec:
+  selector:
+    app: qr-tickets
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
