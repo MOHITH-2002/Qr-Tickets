@@ -39,7 +39,17 @@ Make sure you have the following installed on your system:
     git clone https://github.com/MOHITH-2002/Qr-Tickets.git .
     
     ```
+2. install and run through Docker:
+provide your .env credentials in /kubernetes/deployment-service.yml 
 
+   
+   ```bash
+    docker build -t mohith9353/qr-ticket:latest .
+   
+    docker run -p 3000:3000 mohith9353/qr-ticket:latest
+    ```
+   
+   OR
 2. Install dependencies:
 
     ```bash
