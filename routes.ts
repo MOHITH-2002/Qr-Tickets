@@ -12,7 +12,9 @@ export const publicRoutes = [
 
 
   "/auth/new-verification",
-  "/api/webhook/stripe"
+  "/api/webhook/stripe",
+  "/api/createOrder",
+  "/api/VerifyOrder"
 
 ];
 

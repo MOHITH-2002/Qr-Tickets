@@ -13,9 +13,10 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image";
 import { loadStripe } from '@stripe/stripe-js';
 
-import { useEffect } from "react";
-import { checkoutOrder, createUser } from "@/lib/actions/payment-checkout";
+import { useEffect, useState } from "react";
+import { createOrder, createUser } from "@/lib/actions/payment-checkout";
 import moment from "moment";
+import Script from "next/script";
 
 
 
@@ -33,11 +34,8 @@ interface alertProps {
 
 }
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-export   function Alertproceed({numberofpassenger,destDistance,srcDistance,price,selectedItem,destSelectedItem,email,username}:alertProps) {
+export  function Alertproceed({numberofpassenger,destDistance,srcDistance,price,selectedItem,destSelectedItem,email,username}:alertProps) {
 
-
-
-    
 
 const renderPassengerDetails = () => {
     const passengerList = [];
@@ -73,36 +71,84 @@ const renderAmount = () => {
   }, []);
 
 
-    const onCheckout = async () => {
-    const order = {
-      
-      source:selectedItem,
-      destination:destSelectedItem,
-      price:price*numberofpassenger,
-      bookingTime:new Date(),
-      passengers:numberofpassenger,
-      destDistance:destDistance,
-      sourceDistance:srcDistance,
-      email,username
-      
 
-    }
-    // console.log(order);
+const onCheckout = async () => {
+  const order = {
+    source: selectedItem,
+    destination: destSelectedItem,
+    price: price * numberofpassenger,
+    bookingTime: new Date(),
+    passengers: numberofpassenger,
+    destDistance: destDistance,
+    sourceDistance: srcDistance,
+    email,
+    username,
+  };
 
-    const user = await createUser(order);
-    
-    
-    
+  // Create user order and get userOrderId
+  const userOrderId = await createUser(order);
+  
 
-    
+  console.log('User ID:', userOrderId); // Log user ID to confirm
 
-    await checkoutOrder({price:price*numberofpassenger,userId:user._id,email:email,passengers:numberofpassenger});
-    console.log("success in checkout");
+  // Create Razorpay order
+  const res = await fetch('/api/createOrder', {
+    method: 'POST',
+    body: JSON.stringify({ amount: price * numberofpassenger * 100 }),
+  });
+  const data = await res.json();
+
+
+  // Payment data for Razorpay
+  const paymentData = {
+    key: process.env.NEXT_PUBLIC_RAZORPAY_API_ID,
+    order_id: data.id,
+
+    handler: async function (response: any) {
+      // Verify payment
+      const res = await fetch('/api/verifyOrder', {
+        method: 'POST',
+        body: JSON.stringify({
+          orderId: response.razorpay_order_id,
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpaySignature: response.razorpay_signature,
+        }),
+      });
+      const verificationData = await res.json();
+
+      if (verificationData.isOk) {
+        // Use the captured Razorpay Order ID
+
+        // Call createOrder with the correct IDs
+        await createOrder({
+          userId: userOrderId,
+          orderId: data.id,
+        });
+
+        // Redirect or perform any action after successful payment
+        window.location.href = '/my-tickets';
+      } else {
+        console.error('Payment failed');
+        window.location.href = '/';
+      }
+    },
+  };
+
+  // Open Razorpay checkout
+  const payment = new (window as any).Razorpay(paymentData);
+  payment.open();
+}
+    // await checkoutOrder({price:price*numberofpassenger,userId:user._id,email:email,passengers:numberofpassenger});
+    // console.log("success in checkout");
     
     
-  }
+  
     return (
     <AlertDialog >
+      <Script
+        type="text/javascript"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+      />
         <AlertDialogTrigger asChild>
         <Button className="md:h-16 h-12 w-full rounded-none rounded-b-2xl 
          md:rounded-none md:rounded-r-3xl ">Buy Tickets</Button>

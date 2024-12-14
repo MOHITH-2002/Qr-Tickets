@@ -33,7 +33,7 @@ interface createOrderParams {
     stripeId:string;
     userId:string;
     totalAmount?:string | number;
-    passengers:any;
+    passengers?:any;
 	
     
 
@@ -62,8 +62,11 @@ export const createUser = async (order: CreateUserParams) => {
     })
 
     
-
-    return JSON.parse(JSON.stringify(newuser));
+    // console.log("success create order from newuser");
+    
+    
+    
+    return JSON.parse(JSON.stringify(newuser.id));
 
   } catch (error) {
     console.log("error in creating user");
@@ -74,72 +77,19 @@ export const createUser = async (order: CreateUserParams) => {
   }
 }
 
-export const checkoutOrder = async ({userId,price,email,passengers}:CheckoutOrderParams) => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-  const amount = Number(price) * 100;
-
-
+export const createOrder = async ({userId,orderId}:any) => {
   try {
-    const session = await stripe.checkout.sessions.create({
-      customer_email:email,
-      line_items: [
-        {
-          price_data: {
-            currency: 'INR',
-            unit_amount: amount,
-            product_data: {
-			name: "Tickets Booking"
-            }
-            
-          },
-          quantity: 1
-        },
-      ],
-      metadata: {
-      userId:userId,
-	  passengers:passengers,
-
-    },
-	
-    mode: 'payment',
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/my-tickets`,
-    cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
-    });
-
-
-    
-    
+    // console.log("From serverside");
     
 
-    redirect(session.url!);
-    
-    
-  } catch (error) {
-    throw error;
-  }
-}
-export const createOrder = async (order: createOrderParams) => {
-  try {
-    
-    
     await connectToDb();
-	const qrcode = await QRCode.toDataURL(order.userId);
-    const newOrder = await Order.findByIdAndUpdate(order.userId,{
+	const qrcode = await QRCode.toDataURL(userId);
+    const newOrder = await Order.findByIdAndUpdate(userId,{
       paymentVerification:new Date(),     
-      stripeId:order.stripeId,
+      stripeId:orderId,
 	  qrImage:qrcode,
     });
-	
-
-		
-		
-		
-	
-    
-    console.log("success from update payment verification");
-    
-
+    // redirect("/mytickets");
     return JSON.parse(JSON.stringify(newOrder));
   } catch (error) {
     console.log("error in creating order");
