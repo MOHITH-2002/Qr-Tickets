@@ -1,11 +1,14 @@
+import AlertPrototype from "@/components/auth/alertPrototype";
+
 const AuthLayout = ({ 
   children
 }: { 
   children: React.ReactNode
 }) => {
   return ( 
-    <div className="min-h-full flex items-center justify-center bg-slate-100">
+    <div className="min-h-full flex flex-col items-center justify-center ">
       {children}
+      <AlertPrototype/>
     </div>
    );
 }

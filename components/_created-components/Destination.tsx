@@ -1,73 +1,81 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+
+import { useState, useEffect, useRef } from 'react';
 import { data } from '@/lib/data/data';
-
-import Image from 'next/image';
-
+import { LocationField } from './location-field';
 
 interface Props {
-    destinationSelected: (item: any) => void;
-    removeSelected?: string | null;
+  destinationSelected: (item: any) => void;
+  removeSelected: any;
+  initialValue: string;
 }
 
-const Destination = ({ removeSelected, destinationSelected }: Props) => {
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const [value, setValue] = useState("");
-    const [selectedItem, setSelectedItem] = useState<any>(null);
+const Destination = ({ destinationSelected, removeSelected, initialValue }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [value, setValue] = useState(initialValue);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const handleClick = () => {
-        setIsOpen(!isOpen);
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
     }
 
-    const handleItemClick = (item: any) => {
-        setSelectedItem(item);
-        setValue(item.place);
-        destinationSelected(item); // Pass the selected item to the function
-        setIsOpen(false); // Close the dropdown
-    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
 
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        }
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  }
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+  const handleItemClick = (item: any) => {
+    setSelectedItem(item);
+    setValue(item.place);
+    destinationSelected(item);
+    setIsOpen(false);
+  }
 
-    const filteredData = data.filter((item) => item.place.includes(value.toUpperCase()) && item.place !== removeSelected);
-    const dropdownHeight = Math.min(filteredData.length * 40, 220);
+  const normalizedValue = value.toLowerCase();
+  const filteredData = data.filter((item) => item.place.toLowerCase().includes(normalizedValue) && item.place !== removeSelected);
+  const dropdownHeight = Math.min(filteredData.length * 40, 220);
 
-    return (
-        <div className="">
-            <div className="flex  items-center relative" onClick={handleClick}>
-                <Image src="/getoff.png" alt="getoff" width="22" height="20" className="absolute flex left-2 text-muted-foreground "  />
-            <Input type="text" placeholder="To"  onChange={(e) => setValue(e.target.value)} value={value} className='pl-10  focus:none  focus-visible:ring-transparent lg:w-[13.5rem] md:w-[12rem]  h-12 md:h-16'/>
-            </div>
-            {isOpen &&
-                <div style={{maxHeight: `${dropdownHeight}px` }} className="flex flex-col lg:w-[13.5rem] md:w-[12rem]  absolute z-[99999] overflow-y-auto bg-white mt-1 rounded-sm" ref={dropdownRef} >
-                    {filteredData.map((item) => (
-                        <Button
-                            key={item.id}
-                            className="w-full flex"
-                            variant="ghost"
-                            onClick={() => handleItemClick(item)}
-                        >
-                            {item.place}
-                        </Button>
-                    ))}
-                </div>
-            }
+  return (
+    <div className="relative mt-4">
+      <LocationField
+        label="Destination"
+        value={value}
+        onClick={handleClick}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      {isOpen && (
+        <div
+          ref={dropdownRef}
+          style={{ maxHeight: `${dropdownHeight}px` }}
+          className="absolute z-[99999] w-full mt-2 overflow-y-auto rounded-md shadow-lg bg-background border border-border"
+        >
+          {filteredData.map((item) => (
+            <button
+              key={item.id}
+              className="w-full px-4 py-2 text-left hover:bg-accent hover:text-accent-foreground"
+              onClick={() => handleItemClick(item)}
+            >
+              {item.place}
+            </button>
+          ))}
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 export default Destination;
+

@@ -1,8 +1,8 @@
 import { Poppins } from "next/font/google";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { ArrowRightLeft } from "lucide-react";
+import { QrCode } from "lucide-react";
+
 
 const font = Poppins({
   subsets: ["latin"],
@@ -21,7 +21,7 @@ export const Header = ({
       <div className="flex gap-2 items-center">
 		<div className="flex ">
 
-            <ArrowRightLeft strokeWidth={2.25} size={26} />
+            <QrCode strokeWidth={2.25} size={40} className="text-primary" />
 
 		</div>
       <h1 className={cn(

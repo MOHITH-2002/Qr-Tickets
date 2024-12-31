@@ -39,10 +39,7 @@ export const {
             const existingUser= await User.findOne({ email: user.email});
             
           if(existingUser?.emailVerified === null) return false;
-          
-
-                
-                
+     
             
           if (!existingUser) {
             const newUser = new User({
