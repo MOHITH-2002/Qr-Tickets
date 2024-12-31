@@ -1,4 +1,6 @@
 # QR-based Ticket Booking System
+## Prototype Warning
+This website is a prototype developed for a senior engineering design project and is not the official HDBRTS website. It is exclusively meant for testing and demonstration purposes (KLE Technological Univeristy).
 
 This project is a QR-based ticket booking system built with Next.js 14, MongoDB, Stripe, and NextAuth v5. It provides a secure platform for online ticket booking with integrated payment processing and user authentication. The system includes real-time QR code validation and turnstile (door) access control using a Raspberry PI-4B.
 
